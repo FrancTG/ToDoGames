@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <SignAssembly>false</SignAssembly>
+    <ApplicationIcon>img-dalle-1-_1_ (2).ico</ApplicationIcon>
+    <StartupObject />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="img\img-dalle-1 %281%29.png" />
+    <None Remove="img\racon-icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentWPF" Version="0.10.2" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.10" />
+    <PackageReference Include="Nancy" Version="2.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\img-dalle-1 (1).png" />
+    <Resource Include="img\racon-icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Core\Enum\" />
+  </ItemGroup>
+
+</Project>

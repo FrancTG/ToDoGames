@@ -1,0 +1,24 @@
+﻿<Window x:Class="ToDoGames.Core.DialogService.DialogChangeKey"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ToDoGames.Core.DialogService"
+        xmlns:vm="clr-namespace:ToDoGames.Core.DialogService"
+        d:DataContext="{d:DesignInstance Type=vm:ChangeKeyViewModel}"
+        mc:Ignorable="d"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        fw:AcrylicWindow.Enabled="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        Icon="../../img/racon-icon.ico"
+        Title="Modificar llave de la api" Height="200" Width="300">
+    <StackPanel Background="#CC00040C">
+        <TextBlock Text="Api Key:" Foreground="white"  Width="200"  Height="20" Margin="0 20 0 0"/>
+        <TextBox x:Name="inputApiKey" Width="200"  Height="30" Foreground="white" Background="#19FFFFFF" Margin="0 5"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Obtener key" Foreground="White" FontSize="12" Background="Goldenrod" Width="100" Height="30" Margin="5" Command="{Binding GetNewKeyCommand}" Cursor="Hand" />
+            <Button Content="Guardar" Foreground="White" FontSize="12" Background="CadetBlue" Width="100" Height="30" Margin="5" Command="{Binding SaveKeyCommand}" CommandParameter="{Binding Text, ElementName=inputApiKey}" />
+        </StackPanel>
+    </StackPanel>
+</Window>

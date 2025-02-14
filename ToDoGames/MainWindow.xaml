@@ -1,0 +1,168 @@
+﻿<fw:AcrylicWindow x:Class="ToDoGames.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ToDoGames"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:vm="clr-namespace:ToDoGames.ViewModel"
+        xmlns:views="clr-namespace:ToDoGames.Views"
+        xmlns:core="clr-namespace:ToDoGames.Core"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720" Width="1300"
+        AcrylicWindowStyle="None"
+        fw:AcrylicWindow.Enabled="True"
+        Background="Transparent"
+        BorderBrush="Transparent"
+        WindowStartupLocation="CenterScreen">
+    
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate x:Name="playedViewTemplate" DataType="{x:Type vm:PlayedViewModel}">
+            <views:PlayedView />
+        </DataTemplate>
+        <DataTemplate x:Name="apiGameViewTemplate" DataType="{x:Type vm:ApiGameViewModel}">
+            <views:ApiGameView />
+        </DataTemplate>
+        <DataTemplate x:Name="toPlayViewTemplate" DataType="{x:Type vm:ToPlayViewModel}">
+            <views:ToPlayView />
+        </DataTemplate>
+        
+        <Style x:Key="MenuButtons" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="DarkGoldenrod"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#CC00040C">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Background="Transparent"></Grid>
+            <Grid Grid.Column="1">
+                <StackPanel Width="100" Height="20">
+                    <Canvas>
+                        <Ellipse
+                      Name="MinimizeButton"
+                      Canvas.Top="0"
+                      Canvas.Left="10"
+                      Fill="#FF2ADA19"
+                      Height="15"
+                      Width="15"
+                      StrokeThickness="5"
+                      Stroke="#FF2ADA19" MouseLeftButtonDown="MinimizeApp" MouseEnter="MinimizeButton_MouseEnter" MouseLeave="MinimizeButton_MouseLeave"/>
+                    </Canvas>
+                    <Canvas>
+                        <Ellipse
+                      Name="MaximizeButton"
+                      Canvas.Top="0"
+                      Canvas.Left="40"
+                      Fill="#FFFFDC00"
+                      Height="15"
+                      Width="15"
+                      StrokeThickness="5"
+                      Stroke="#FFFFDC00" MouseLeftButtonDown="MaximizeApp" MouseEnter="MaximizeButton_MouseEnter" MouseLeave="MaximizeButton_MouseLeave" />
+                    </Canvas>
+                    <Canvas>
+                        <Ellipse
+                      Name="CloseButton"
+                      Canvas.Top="0"
+                      Canvas.Left="70"
+                      Fill="#FFFF1F48"
+                      Height="15"
+                      Width="15"
+                      StrokeThickness="5"
+                      Stroke="#FFFF1F48" MouseLeftButtonDown="CloseApp" MouseEnter="CloseButton_MouseEnter" MouseLeave="CloseButton_MouseLeave"/>
+                    </Canvas>
+                </StackPanel>
+            </Grid>
+            
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="953*"/>
+            </Grid.ColumnDefinitions>
+            <Grid/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="140"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="140"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Image Source="/img/img-dalle-1 (1).png" />
+                </Grid>
+                <Grid Grid.Row="1">
+                    <StackPanel VerticalAlignment="Center">
+                        <ListView FontSize="15">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <ContentPresenter />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <Button Command="{Binding SelectPageCommand}" CommandParameter="{x:Static core:PageName.PLAYED}" Style="{StaticResource MenuButtons}" >
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Gamepad" Width="25" Height="25" Margin="15,0,15,0" Foreground="white"/>
+                                    <TextBlock Text="Valorados" FontSize="16" VerticalAlignment="Center" Foreground="white"/>
+                                </StackPanel>
+                            </Button>
+                            <Button  Command="{Binding SelectPageCommand}" CommandParameter="{x:Static core:PageName.TOPLAY}" Style="{StaticResource MenuButtons}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="MicrosoftXboxGamepad" Width="25" Height="25" Margin="15,0,15,0" Foreground="white"/>
+                                    <TextBlock Text="Guardados" FontSize="16" VerticalAlignment="Center" Foreground="white"/>
+                                </StackPanel>
+                            </Button>
+                            <Button Command="{Binding SelectPageCommand}" CommandParameter="{x:Static core:PageName.NEW}" Style="{StaticResource MenuButtons}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Add" Width="25" Height="25" Margin="15,0,15,0" Foreground="white"/>
+                                    <TextBlock Text="Añadir nuevo" FontSize="16" VerticalAlignment="Center" Foreground="white"/>
+                                </StackPanel>
+                            </Button>
+                        </ListView>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Button Content="Cambiar API Key" Width="110" Height="20" Foreground="white" FontSize="10" Background="Goldenrod" Command="{Binding ChangeKeyCommand}" />
+                    <TextBlock Foreground="#66FFFFFF" Text="GIT" FontSize="10" Margin="15" VerticalAlignment="Bottom" />
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
+                <ContentControl Content="{Binding SelectedPage}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+    
+</fw:AcrylicWindow>
